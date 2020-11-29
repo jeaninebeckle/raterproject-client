@@ -17,10 +17,10 @@ export const ApplicationViews = () => {
                     
                 <Route exact path="/games/new" render={props => <GameForm {...props} />} />
 
-                
                 <Route path="/games/:gameId" render={
                             props => <GameDetails {...props} />
                         } />
+
 
                 {/* <EventProvider>
                 <Route exact path="/events" render={(props) => {

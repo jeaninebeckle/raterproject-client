@@ -3,7 +3,7 @@ import { GameContext } from "./GameProvider.js"
 
 
 export const GameForm = props => {
-    const { createGame, getCategories, categories, designers } = useContext(GameContext)
+    const { createGame, getCategories, categories, designers, getDesigners } = useContext(GameContext)
 
     const [currentGame, setCurrentGame] = useState({
         ageRecommendation: 10,
@@ -17,6 +17,7 @@ export const GameForm = props => {
 
     useEffect(() => {
         getCategories()
+        getDesigners()
     }, [])
 
     /*
