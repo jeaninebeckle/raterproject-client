@@ -3,27 +3,20 @@ import { GameContext } from "./GameProvider.js"
 
 
 export const GameForm = props => {
-    const { createGame, getGameTypes, gameTypes } = useContext(GameContext)
+    const { createGame, getCategories, categories, designers } = useContext(GameContext)
 
-    /*
-        Since the input fields are bound to the values of
-        the properties of this state variable, you need to
-        provide some default values.
-    */
     const [currentGame, setCurrentGame] = useState({
-        skillLevel: 1,
+        ageRecommendation: 10,
         numberOfPlayers: 0,
-        title: "",
-        maker: "",
-        gameTypeId: 0
+        title: "Uno",
+        designerId: 1,
+        categoryId: 0,
+        gameImage: "www.google.com"
     })
 
-    /*
-        Get game types on initialization so that the <select>
-        element presents game type choices to the user.
-    */
+
     useEffect(() => {
-        getGameTypes()
+        getCategories()
     }, [])
 
     /*
@@ -50,11 +43,14 @@ export const GameForm = props => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="maker">Maker: </label>
-                    <input type="text" name="maker" required autoFocus className="form-control"
-                        defaultValue={currentGame.maker}
-                        onChange={handleControlledInputChange}
-                    />
+                    <label htmlFor="designerId">Designer: </label>
+                    <select name="designerId" onChange={handleControlledInputChange}>
+                      {
+                        designers.map(designer => {
+                          return <option value={designer.id} key={designer.id}>{designer.name}</option>
+                        })
+                      }
+                    </select>
                 </div>
             </fieldset>
             <fieldset>
@@ -68,27 +64,54 @@ export const GameForm = props => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="skillLevel">Skill Level: </label>
-                    <input type="text" name="skillLevel" required autoFocus className="form-control"
-                        defaultValue={currentGame.skillLevel}
+                    <label htmlFor="gameImage">Game Image URL: </label>
+                    <input type="text" name="gameImage" required autoFocus className="form-control"
+                        defaultValue={currentGame.gameImage}
                         onChange={handleControlledInputChange}
                     />
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="gametypeId">Game Type: </label>
-                    <select name="gameTypeId" onChange={handleControlledInputChange}>
+                    <label htmlFor="yearReleased">Year Released: </label>
+                    <input type="text" name="yearReleased" required autoFocus className="form-control"
+                        defaultValue={currentGame.yearReleased}
+                        onChange={handleControlledInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="estimatedTimeToPlay">Estimated Time To Play: </label>
+                    <input type="text" name="estimatedTimeToPlay" required autoFocus className="form-control"
+                        defaultValue={currentGame.estimatedTimeToPlay}
+                        onChange={handleControlledInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="ageRecommendation">Age Recommendation: </label>
+                    <input type="text" name="ageRecommendation" required autoFocus className="form-control"
+                        defaultValue={currentGame.ageRecommendation}
+                        onChange={handleControlledInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="categoryId">Category: </label>
+                    <select name="categoryId" onChange={handleControlledInputChange}>
                       {
-                        gameTypes.map(gameType => {
-                          return <option value={gameType.id} key={gameType.id}>{gameType.label}</option>
+                        categories.map(category => {
+                          return <option value={category.id} key={category.id}>{category.label}</option>
                         })
                       }
                     </select>
                 </div>
             </fieldset>
 
-            {/* You create the rest of the input fields for each game property */}
+
 
             <button type="submit"
                 onClick={evt => {
@@ -96,11 +119,13 @@ export const GameForm = props => {
                     evt.preventDefault()
 
                     const game = {
-                        maker: currentGame.maker,
+                        designer: currentGame.designerId,
                         title: currentGame.title,
                         numberOfPlayers: parseInt(currentGame.numberOfPlayers),
-                        skillLevel: parseInt(currentGame.skillLevel),
-                        gameTypeId: parseInt(currentGame.gameTypeId)
+                        estimatedTimeToPlay: parseInt(currentGame.estimatedTimeToPlay),
+                        ageRecommendation: parseInt(currentGame.ageRecommendation),
+                        gameImage: currentGame.gameImage,
+                        categoryId: parseInt(currentGame.categoryId)
                     }
 
                     // Send POST request to your API

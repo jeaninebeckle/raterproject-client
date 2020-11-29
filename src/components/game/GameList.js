@@ -1,5 +1,7 @@
 import React, { useContext, useEffect } from "react"
+import { Link } from "react-router-dom"
 import { GameContext } from "./GameProvider.js"
+
 
 export const GameList = (props) => {
     const { games, getGames } = useContext(GameContext)
@@ -18,7 +20,9 @@ export const GameList = (props) => {
             {
                 games.map(game => {
                     return <section key={`game--${game.id}`} className="game">
+                    <Link to={`/games/${game.id}`}>
                         <div className="game__title">{game.title}</div>
+                    </Link>
                     </section>
                 })
             }

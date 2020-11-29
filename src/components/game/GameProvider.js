@@ -4,8 +4,8 @@ export const GameContext = React.createContext()
 
 export const GameProvider = (props) => {
     const [ games, setGames ] = useState([])
-    const [ gameTypes, setTypes ] = useState([])
-
+    const [ designers, setDesigners ] = useState([])
+    const [ categories, setCategories ] = useState([])
 
     const getGames = () => {
         return fetch("http://localhost:8000/games", {
@@ -16,6 +16,36 @@ export const GameProvider = (props) => {
             .then(response => response.json())
             .then(setGames)
     }
+
+    const getGameById = (id) => {
+      return fetch(`http://localhost:8000/games/${id}`, {
+          headers:{
+              "Authorization": `Token ${localStorage.getItem("lu_token")}`
+          }
+      })
+          .then(response => response.json())
+          .then(setGames)
+  }
+
+    const getDesigners = () => {
+      return fetch("http://localhost:8000/designers", {
+          headers:{
+              "Authorization": `Token ${localStorage.getItem("lu_token")}`
+          }
+      })
+          .then(response => response.json())
+          .then(setDesigners)
+  }
+
+    const getCategories = () => {
+      return fetch("http://localhost:8000/categories", {
+          headers:{
+              "Authorization": `Token ${localStorage.getItem("lu_token")}`
+          }
+      })
+          .then(response => response.json())
+          .then(setCategories)
+  }
 
     const createGame = (game) => {
         return fetch("http://localhost:8000/games", {
@@ -32,18 +62,9 @@ export const GameProvider = (props) => {
             })
     }
     
-    const getGameTypes = () => {
-        return fetch("http://localhost:8000/gametypes", {
-            headers:{
-                "Authorization": `Token ${localStorage.getItem("lu_token")}`
-            }
-        })
-            .then(response => response.json())
-            .then(setTypes)
-    }
 
     return (
-        <GameContext.Provider value={{ games, gameTypes, getGames, createGame, getGameTypes }} >
+        <GameContext.Provider value={{ games, designers, categories, getGames, createGame, getDesigners, getGameById, getCategories }} >
             { props.children }
         </GameContext.Provider>
     )
