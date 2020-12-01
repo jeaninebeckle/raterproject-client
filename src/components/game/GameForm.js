@@ -3,21 +3,21 @@ import { GameContext } from "./GameProvider.js"
 
 
 export const GameForm = props => {
-    const { createGame, getCategories, categories, designers, getDesigners } = useContext(GameContext)
+    const { createGame, getCategories, categories } = useContext(GameContext)
 
     const [currentGame, setCurrentGame] = useState({
         ageRecommendation: 10,
         numberOfPlayers: 0,
         title: "Uno",
-        designerId: 1,
+        designer: 'Someone',
         categoryId: 0,
-        gameImage: "www.google.com"
+        gameImage: "www.google.com",
+        yearReleased: 2020
     })
 
 
     useEffect(() => {
         getCategories()
-        getDesigners()
     }, [])
 
     /*
@@ -44,14 +44,11 @@ export const GameForm = props => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="designerId">Designer: </label>
-                    <select name="designerId" onChange={handleControlledInputChange}>
-                      {
-                        designers.map(designer => {
-                          return <option value={designer.id} key={designer.id}>{designer.name}</option>
-                        })
-                      }
-                    </select>
+                    <label htmlFor="designer">Designer: </label>
+                    <input type="text" name="designer" required autoFocus className="form-control"
+                        defaultValue={currentGame.designer}
+                        onChange={handleControlledInputChange}
+                    />
                 </div>
             </fieldset>
             <fieldset>
@@ -99,7 +96,7 @@ export const GameForm = props => {
                     />
                 </div>
             </fieldset>
-            <fieldset>
+            {/* <fieldset>
                 <div className="form-group">
                     <label htmlFor="categoryId">Category: </label>
                     <select name="categoryId" onChange={handleControlledInputChange}>
@@ -110,7 +107,7 @@ export const GameForm = props => {
                       }
                     </select>
                 </div>
-            </fieldset>
+            </fieldset> */}
 
 
 
@@ -120,13 +117,14 @@ export const GameForm = props => {
                     evt.preventDefault()
 
                     const game = {
-                        designer: currentGame.designerId,
+                        designer: currentGame.designer,
                         title: currentGame.title,
                         numberOfPlayers: parseInt(currentGame.numberOfPlayers),
                         estimatedTimeToPlay: parseInt(currentGame.estimatedTimeToPlay),
                         ageRecommendation: parseInt(currentGame.ageRecommendation),
                         gameImage: currentGame.gameImage,
-                        categoryId: parseInt(currentGame.categoryId)
+                        yearReleased: currentGame.yearReleased
+                        // categoryId: parseInt(currentGame.categoryId)
                     }
 
                     // Send POST request to your API

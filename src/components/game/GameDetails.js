@@ -1,22 +1,19 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect } from "react"
 import { GameContext } from "./GameProvider.js"
 
 
 export const GameDetails = (props) => {
-    const { games, getGameById, getReviewsById, reviews } = useContext(GameContext)
+    const { games, getGameById, reviews } = useContext(GameContext)
 
 
     useEffect(() => {
-        const reviewId = parseInt()
-        getReviewsById(reviewId)
+        // const reviewId = parseInt()
+        // getReviewsById(reviewId)
 
     
         const gameId = parseInt(props.match.params.gameId)
         getGameById(gameId)
  
-
-        // const designerId = (games.designer_id.name)
-        // getDesignerById(designerId)
   }, [])
 
     return (
@@ -35,7 +32,7 @@ export const GameDetails = (props) => {
   
             reviews.map(review => {
                 return <section key={`review--${review.id}`} className="review">
-                        <div className="review__description">{review.description} </div>
+                        <div className="review__description">{review.description}</div>
                     </section>
                 })
         }
