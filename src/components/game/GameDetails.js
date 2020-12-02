@@ -3,7 +3,7 @@ import { GameContext } from "./GameProvider.js"
 
 
 export const GameDetails = (props) => {
-    const { games, getGameById, reviews } = useContext(GameContext)
+    const { games, getGameById} = useContext(GameContext)
 
 
     useEffect(() => {
@@ -13,6 +13,8 @@ export const GameDetails = (props) => {
     
         const gameId = parseInt(props.match.params.gameId)
         getGameById(gameId)
+
+        // getReviews()
  
   }, [])
 
@@ -27,20 +29,23 @@ export const GameDetails = (props) => {
               <div className="game__age">Age recommendation: minimum {games.age_recommendation} years old</div>
               <div className="game__categories">Categories: </div>
           </section>
-          {console.error(games.designer_id)}
-        {
-  
-            reviews.map(review => {
-                return <section key={`review--${review.id}`} className="review">
-                        <div className="review__description">{review.description}</div>
-                    </section>
-                })
-        }
-           <button className="btn btn-2 btn-sep icon-create"
+          <button className="btn btn-2 btn-sep icon-create"
                 onClick={() => {
                 props.history.push({ pathname: "/review" })
                 }}
                 >Review Game</button>
+
+        <h2>Reviews</h2>
+        {
+        games.reviews&&
+            games.reviews.map(review => {
+                return <section key={`review--${review.id}`} className="review">
+                        <div className="review__description">{review.description}</div>
+                    </section>
+                    
+                })
+        }
+
 
         </article>
         
