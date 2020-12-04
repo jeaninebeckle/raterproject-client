@@ -29,6 +29,9 @@ export const GameDetails = (props) => {
               <div className="game__age">Age recommendation: minimum {games.age_recommendation} years old</div>
               <div className="game__categories">Categories: </div>
           </section>
+          <label htmlFor="rating">Rate game (1-10): </label>	
+                <input type="range" min="1" max="10" name="skillLevel"
+                     />   
           <button className="btn btn-2 btn-sep icon-create"
                 onClick={() => {
                 props.history.push({ pathname: "/review" })
