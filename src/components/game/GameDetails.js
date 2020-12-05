@@ -54,7 +54,7 @@ export const GameDetails = (props) => {
                 className="btn btn-primary">Save Rating</button>
                     <div>
                       <h2>Average Game Rating: </h2>
-                      <p></p>
+                      <p>{games.average_rating}</p>
                     </div>
           <button className="btn btn-2 btn-sep icon-create"
                 onClick={() => {
