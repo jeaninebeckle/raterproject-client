@@ -1,22 +1,25 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { GameContext } from "./GameProvider.js"
 
 
 export const GameDetails = (props) => {
-    const { games, getGameById} = useContext(GameContext)
+    const { games, getGameById, createRating} = useContext(GameContext)
+    const [currentRating, setCurrentRating] = useState({
+        value: 5
+    })
 
 
     useEffect(() => {
-        // const reviewId = parseInt()
-        // getReviewsById(reviewId)
-
-    
         const gameId = parseInt(props.match.params.gameId)
         getGameById(gameId)
-
-        // getReviews()
- 
   }, [])
+
+    const handleControlledInputChange = (event) => {
+        const newRatingState = Object.assign({}, currentRating)
+        newRatingState[event.target.name] = parseInt(event.target.value)
+        console.warn(event.target.value)
+        setCurrentRating(newRatingState)
+    }
 
     return (
         <article>
@@ -29,14 +32,37 @@ export const GameDetails = (props) => {
               <div className="game__age">Age recommendation: minimum {games.age_recommendation} years old</div>
               <div className="game__categories">Categories: </div>
           </section>
-          <label htmlFor="rating">Rate game (1-10): </label>	
-                <input type="range" min="1" max="10" name="skillLevel"
+          <label htmlFor="value">Rate game (1-10): </label>	
+                <input type="range" min="1" max="10" name="value"
+                defaultValue={currentRating.value}
+                        onChange={handleControlledInputChange}
                      />   
+                      <button type="submit"
+                onClick={evt => {
+                    // Prevent form from being submitted
+                    evt.preventDefault()
+
+                    const rating = {
+                        value: currentRating.value,
+                        gameId: games.id
+                    }
+
+                    // Send POST request to your API
+                    createRating(rating)
+                    // props.history.push({ pathname: `/games/${games.id}` })
+                }}
+                className="btn btn-primary">Save Rating</button>
+                    <div>
+                      <h2>Average Game Rating: </h2>
+                      <p></p>
+                    </div>
           <button className="btn btn-2 btn-sep icon-create"
                 onClick={() => {
                 props.history.push({ pathname: "/review" })
                 }}
                 >Review Game</button>
+
+               
 
         <h2>Reviews</h2>
         {
