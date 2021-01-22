@@ -96,10 +96,10 @@ export const GameForm = props => {
                     />
                 </div>
             </fieldset>
-            {/* <fieldset>
+            <fieldset>
                 <div className="form-group">
                     <label htmlFor="categoryId">Category: </label>
-                    <select name="categoryId" onChange={handleControlledInputChange}>
+                    <select name="categoryId" id="categories" defaultValue={currentGame.categoryId} onChange={handleControlledInputChange}>
                       {
                         categories.map(category => {
                           return <option value={category.id} key={category.id}>{category.label}</option>
@@ -107,7 +107,7 @@ export const GameForm = props => {
                       }
                     </select>
                 </div>
-            </fieldset> */}
+            </fieldset>
 
 
 

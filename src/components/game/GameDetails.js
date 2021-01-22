@@ -74,7 +74,7 @@ export const GameDetails = (props) => {
                     
                 })
         }
-
+        <button onClick={() => {props.history.push({ pathname: `upload-image/${games.id}` })}}>Upload Image</button>
 
         </article>
         

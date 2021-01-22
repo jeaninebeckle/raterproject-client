@@ -5,6 +5,7 @@ import { GameList } from "./game/GameList.js"
 import { GameProvider } from "./game/GameProvider.js"
 import { GameDetails } from "./game/GameDetails.js"
 import { ReviewForm } from "./game/ReviewForm.js"
+import { ImageForm } from "./game/ImageForm.js"
 
 
 
@@ -21,6 +22,8 @@ export const ApplicationViews = () => {
                 <Route path="/games/:gameId" render={props => <GameDetails {...props} />} />
 
                 <Route path="/review" render={props => <ReviewForm {...props} />} />
+
+                <Route path="/upload-image" render={props => <ImageForm {...props} />} />
 
 
                 {/* <EventProvider>
