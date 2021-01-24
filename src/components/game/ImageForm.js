@@ -34,10 +34,10 @@ export const ImageForm = (props) => {
                   evt.preventDefault()
                   const { gameId } = props.match.params
                   const image = {
-                      image: currentImage.base64,
-                      gameId: `${gameId}`
+                      game_image: currentImage.base64,
+                      gameId: `${games.id}`
                   }
-                  createImage(image).then(() => props.history.push({ pathname: `/games/${gameId}` }))
+                  createImage(image).then(() => props.history.push({ pathname: `/games/${games.id}` }))
               }}
               className="btn btn-2 btn-sep icon-create">Upload</button>
     </form>
