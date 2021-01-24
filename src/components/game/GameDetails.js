@@ -22,7 +22,7 @@ export const GameDetails = (props) => {
     }
 
     return (
-        <article>
+        <div>
           <section className="game">
               <div className="game__title">Title: {games.title}</div>
               <div className="game__designer">Designer: {games.designer}</div>
@@ -74,9 +74,22 @@ export const GameDetails = (props) => {
                     
                 })
         }
+        <div className="image_container">
+                    <h2 className="list-h1">Action Shots</h2>
+                    <div className="review-detail">
+                    {
+                        games.pictures && games.pictures.map(picture => {
+                            return <img src={picture.action_pic}></img>
+                        })
+                    }
+                    </div>
+        </div>
 
+        
+        <button onClick={() => {props.history.push({ pathname: `/upload-image/${games.id}` })}}>Upload Image</button>
 
-        </article>
+        </div>
+        
         
         )
     }

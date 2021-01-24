@@ -11,6 +11,7 @@ export const GameForm = props => {
         title: "Uno",
         designer: 'Someone',
         categoryId: 0,
+        estimatedTimeToPlay: 4,
         gameImage: "www.google.com",
         yearReleased: 2020
     })
@@ -96,10 +97,10 @@ export const GameForm = props => {
                     />
                 </div>
             </fieldset>
-            {/* <fieldset>
+            <fieldset>
                 <div className="form-group">
                     <label htmlFor="categoryId">Category: </label>
-                    <select name="categoryId" onChange={handleControlledInputChange}>
+                    <select name="categoryId" id="categories" onChange={handleControlledInputChange}>
                       {
                         categories.map(category => {
                           return <option value={category.id} key={category.id}>{category.label}</option>
@@ -107,7 +108,7 @@ export const GameForm = props => {
                       }
                     </select>
                 </div>
-            </fieldset> */}
+            </fieldset>
 
 
 
@@ -123,8 +124,8 @@ export const GameForm = props => {
                         estimatedTimeToPlay: parseInt(currentGame.estimatedTimeToPlay),
                         ageRecommendation: parseInt(currentGame.ageRecommendation),
                         gameImage: currentGame.gameImage,
-                        yearReleased: currentGame.yearReleased
-                        // categoryId: parseInt(currentGame.categoryId)
+                        yearReleased: currentGame.yearReleased,
+                        categoryId: parseInt(currentGame.categoryId)
                     }
 
                     // Send POST request to your API

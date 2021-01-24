@@ -102,12 +102,27 @@ export const GameProvider = (props) => {
                 
             })
     }
+
+
+  const createImage = (review) => {
+    return fetch("http://localhost:8000/image", {
+      method: "POST",
+      headers: {
+        "Authorization": `Token ${localStorage.getItem("lu_token")}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(review)
+    })
+    .then(res => res.json())
+  .then(setGames)
+}
+
     
 
     return (
         <GameContext.Provider value={{ games, categories, reviews,
         getGames, createGame, getGameById, getCategories, setReviews, createReview, 
-        getReviews, getReviewsById, createRating }} >
+        getReviews, getReviewsById, createRating, createImage }} >
             { props.children }
         </GameContext.Provider>
     )
